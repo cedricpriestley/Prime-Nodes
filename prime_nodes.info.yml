@@ -1,0 +1,7 @@
+name: Prime Nodes
+type: module
+description: Defines a custom "Prime" nodes module.
+core: 9.x
+package: Custom
+dependencies:
+  - block
