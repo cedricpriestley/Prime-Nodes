@@ -1,0 +1,7 @@
+prime_nodes:
+  version: 1.x
+  css:
+    theme:
+      css/prime_nodes.css: {}
+  js:
+    js/prime_nodes.js: {}
