@@ -1,0 +1,35 @@
+<?php
+function isPrime($n) {
+  for($x=2; $x<$n; $x++) {
+    if($n %$x ==0) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+function primeNodeList() {
+  $nids = \Drupal::entityQuery('node')->execute();
+
+  $prime_nids = [];
+  foreach($nids as $nid) {
+    if (isPrime($nid)) {
+      $prime_nids[] = $nid;
+    }
+  }
+
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $node_view_builder = $entity_type_manager->getViewBuilder('node');
+  $view_mode = 'teaser';
+
+  $prime_nodes = $entity_type_manager->getStorage('node')->loadMultiple($prime_nids);
+
+  $list = ['nodes' => []];
+
+  foreach ($prime_nodes as $prime_node) {
+    $list['nodes'][$prime_node->id()] = $node_view_builder->view($prime_node, $view_mode);
+  }
+
+  return $list;
+}
+
