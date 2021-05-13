@@ -12,7 +12,7 @@ use Drupal\Core\Session\AccountInterface;
  *
  * @Block(
  *   id = "prime_nodes_block",
- *   admin_label = @Translation("My block"),
+ *   admin_label = @Translation("Prime Nodes Block"),
  * )
  */
 class PrimeNodesBlock extends BlockBase {
@@ -20,9 +20,17 @@ class PrimeNodesBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+
+    $node_list = primeNodeList(); 
+
     return [
-      '#markup' => $this->t('This is a simple block!'),
+      '#theme' => 'nodes_landing',
+      '#node_list' => $node_list,
     ];
+
+    /* return [ */
+    /*   '#markup' => $this->t('This is a simple block!'), */
+    /* ]; */
   }
 
   /**
