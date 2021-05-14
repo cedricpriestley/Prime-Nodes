@@ -1,0 +1,46 @@
+/* B.4.example */
+/* Don't use animal names in selectors
+Using the animal names in the selectors is too specific and will not apply always to the component.
+ */
+/* #dog-fido,*/
+/* changing top-level selector to class so mutiple instances can exist on a single page. */
+.top-dog {
+}
+
+/* B.4.1 */
+/* removed a.some-class as it is included in the selector below */
+.top-dog .some-class {
+}
+
+/* B.4.2 */
+/* removed .parent-class > .child-class, prepend top-level selector */
+.top-dog .parent-class .child-class,
+.top-dog .child-class--variant {
+}
+
+/* B.4.3 */
+/* removed the .parent-class #child-id selector since it is ignored prepend top-level selector so that it only applies within the component. */
+.top-dog #child-id {
+}
+
+/* B.4.4 */
+/* removed ul li a and ul > li > a since they are overidden by the selector below  */
+.top-dog ul a {
+}
+
+/* B.4.5 */
+input[type="submit"],
+.submit-button {
+}
+
+/* B.4.6 */
+ul li:last-child,
+ul li.last-child {
+}
+
+/* B.4.7 */
+ul li:nth-child(2),
+ul li.first + li {
+}
+
+
