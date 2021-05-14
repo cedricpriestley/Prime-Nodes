@@ -21,16 +21,17 @@ class PrimeNodesBlock extends BlockBase {
    */
   public function build() {
 
-    $node_list = primeNodeList(); 
+    /* $node_list = primeNodeList(); */ 
+    /*  var_dump("node_list"); */
+    /* exit; */
+    /* return [ */
+    /*   '#theme' => 'nodes_landing', */
+    /*   '#node_list' => $node_list, */
+    /* ]; */
 
     return [
-      '#theme' => 'nodes_landing',
-      '#node_list' => $node_list,
+      '#markup' => $this->t('This is a simple block!'),
     ];
-
-    /* return [ */
-    /*   '#markup' => $this->t('This is a simple block!'), */
-    /* ]; */
   }
 
   /**
