@@ -29,13 +29,15 @@ Using the animal names in the selectors is too specific and will not apply alway
 }
 
 /* B.4.5 */
-input[type="submit"],
-.submit-button {
+/* prepend top-level class to each selector because each could be mutually exclusive and only applied to instances of our component */
+.top-dog input[type="submit"],
+.top-dog .submit-button {
 }
 
 /* B.4.6 */
-ul li:last-child,
-ul li.last-child {
+/* prepend top-level class to each selector because each could be mutually exclusive and only applied to instances of our component */
+.top-dog ul li:last-child,
+.top-dog ul li.last-child {
 }
 
 /* B.4.7 */
