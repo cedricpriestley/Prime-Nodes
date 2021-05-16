@@ -21,17 +21,24 @@ class PrimeNodesBlock extends BlockBase {
    */
   public function build() {
 
-    /* $node_list = primeNodeList(); */ 
-    /*  var_dump("node_list"); */
-    /* exit; */
-    /* return [ */
-    /*   '#theme' => 'nodes_landing', */
-    /*   '#node_list' => $node_list, */
-    /* ]; */
+    $entity_type = 'node';
+    $view_mode = 'teaser';
 
-    return [
-      '#markup' => $this->t('This is a simple block!'),
-    ];
+    $entity_type_manager = \Drupal::entityTypeManager();
+    $view_builder = $entity_type_manager->getViewBuilder($entity_type);
+    $nids = \Drupal::entityQuery('node')->sort('created' , 'DESC')->range(0, 5)->execute();
+
+    $prime_nids = [];
+    foreach($nids as $nid) {
+      if (isPrime($nid)) {
+        $prime_nids[] = $nid;
+      }
+    }
+    $storage = $entity_type_manager->getStorage($entity_type);
+    $prime_nodes = $entity_type_manager->getStorage($entity_type)->loadMultiple($prime_nids);
+    $build = $view_builder->viewMuliple($prime_nodes, $view_mode);
+
+    return $build;
   }
 
   /**

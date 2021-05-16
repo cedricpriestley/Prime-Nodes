@@ -40,36 +40,3 @@ function isPrime($n) {
   }
   return 1;
 }
-
-/**
- * Returns a list of nodes whose nid is a prime number.
- * @return array
- *   The array of "prime" nodes
- */
-function primeNodeList() {
-  $nids = \Drupal::entityQuery('node')->sort('created' , 'DESC')->range(0, 5)->execute();
-
-  $prime_nids = [];
-  foreach($nids as $nid) {
-    if (isPrime($nid)) {
-      $prime_nids[] = $nid;
-    }
-  }
-
-  $entity_type_manager = \Drupal::entityTypeManager();
-  $node_view_builder = $entity_type_manager->getViewBuilder('node');
-  $view_mode = 'teaser';
-
-  $prime_nodes =  \Drupal\node\Entity\Node::loadMultiple($prime_nids);
-  /* $prime_nodes = $entity_type_manager->getStorage('node')->loadMultiple($prime_nids); */
-
-  $list = ['nodes' => []];
-  foreach ($prime_nodes as $prime_node) {
-    $list['nodes'][$prime_node->id()] = $node_view_builder->view($prime_node, $view_mode);
-  }
-  /* echo "helli"; */
-  var_dump("rime_nodes");
-  /* exit; */
-  return $list;
-}
-
