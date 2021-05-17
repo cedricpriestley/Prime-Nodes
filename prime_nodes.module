@@ -5,18 +5,48 @@
  * Contains specialfields.module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
+ *
+ * Adds configurable message to each content type.
+ *
+ */
+function prime_nodes_form_node_type_edit_form_alter(&$form, FormStateInterface $form_state) {
+/*$types = \Drupal::entityTypeManager()
+  ->getStorage('node_type')
+  ->loadMultiple();*/
+  /* $types = node_type_get_names(); */
+  /* var_dump($types); */
+
+  $types = node_type_get_names();
+
+  $form['prime_msg']['type'] = [
+    '#type' => 'select',
+    '#title' => t('Node Type'),
+    '#options' => $types,
+  ];
+
+  $form['prime_msg']['msg'] = [
+    '#type' => 'textfield',
+    '#title' => t('Message'),
+  ];
+    /* $form['#validate'][] = 'prime_nodes_date_form_validate'; */
+}
+
 /**
  * Implements hook_form_alter().
  */
-function prime_nodes_form_alter(&$form, $form_state, $form_id) {
-  if ($form_id === "node_type_edit_form")
-  {
-    /* print_r($form_id); */
-  }
+/* function prime_nodes_form_alter(&$form, $form_state, $form_id) { */
+/*   if ($form_id === "node_type_edit_form") { */
+/*     /1* print_r($form_id); *1/ */
+/*   } */
 
-  if (true)
-    $form['#validate'][] = 'prime_nodes_date_form_validate';
-}
+/*   if (true) */
+/*     $form['#validate'][] = 'prime_nodes_date_form_validate'; */
+/* } */
 
 function prime_nodes_date_form_validate($form, &$form_state) {
   /* if ($form_state['values']['date'] == 'test') { */

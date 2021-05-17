@@ -36,7 +36,7 @@ class PrimeNodesBlock extends BlockBase {
     }
     $storage = $entity_type_manager->getStorage($entity_type);
     $prime_nodes = $entity_type_manager->getStorage($entity_type)->loadMultiple($prime_nids);
-    $build = $view_builder->viewMuliple($prime_nodes, $view_mode);
+    $build = $view_builder->view($prime_nodes, $view_mode);
 
     return $build;
   }
