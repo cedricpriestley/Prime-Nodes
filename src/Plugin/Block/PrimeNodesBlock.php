@@ -6,6 +6,7 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Provides a block with a simple text.
@@ -52,8 +53,6 @@ class PrimeNodesBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
-    $config = $this->getConfiguration();
-
     return $form;
   }
 
@@ -61,6 +60,13 @@ class PrimeNodesBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
-    $this->configuration['prime_nodes_block_settings'] = $form_state->getValue('prime_nodes_block_settings');
+  }
+
+  **
+    * Implements prime_nodes_entity_bundle_field_info_alter().
+*/
+function prime_nodes_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if (!empty($fields['field_date'])) {
+    $fields['field_date']->addConstraint('PrimeNodesDayConstraint');
   }
 }

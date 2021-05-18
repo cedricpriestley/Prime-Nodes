@@ -17,23 +17,26 @@ use Drupal\Core\Form\FormStateInterface;
 function prime_nodes_form_node_type_edit_form_alter(&$form, FormStateInterface $form_state) {
 /*$types = \Drupal::entityTypeManager()
   ->getStorage('node_type')
-  ->loadMultiple();*/
+->loadMultiple();*/
   /* $types = node_type_get_names(); */
   /* var_dump($types); */
 
-  $types = node_type_get_names();
+    /* $config = $config_factory->getEditable('prime_nodes.settings'); */
+    $config = \Drupal::service('config.factory')->getEditable('prime_nodes.settings');
+}
+$types = node_type_get_names();
 
-  $form['prime_msg']['type'] = [
-    '#type' => 'select',
-    '#title' => t('Node Type'),
-    '#options' => $types,
-  ];
+$form['prime_msg']['type'] = [
+  '#type' => 'select',
+  '#title' => t('Node Type'),
+  '#options' => $types,
+];
 
-  $form['prime_msg']['msg'] = [
-    '#type' => 'textfield',
-    '#title' => t('Message'),
-  ];
-    /* $form['#validate'][] = 'prime_nodes_date_form_validate'; */
+$form['prime_msg']['msg'] = [
+  '#type' => 'textfield',
+  '#title' => t('Message'),
+];
+/* $form['#validate'][] = 'prime_nodes_date_form_validate'; */
 }
 
 /**
@@ -58,7 +61,7 @@ function prime_nodes_date_form_validate($form, &$form_state) {
  *
  * @param $n
  *   One number
- *
+ */
  * @return boolean
  *   The value representing whether or  not the input is a prime number.
  */
@@ -70,3 +73,7 @@ function isPrime($n) {
   }
   return 1;
 }
+
+/* $config */
+  /*   ->set('prime_nodes_msg', []) */
+  /*   ->save(); */
