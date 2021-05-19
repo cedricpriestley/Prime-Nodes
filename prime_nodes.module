@@ -23,7 +23,7 @@ function prime_nodes_form_node_type_edit_form_alter(&$form, FormStateInterface $
 
     /* $config = $config_factory->getEditable('prime_nodes.settings'); */
     $config = \Drupal::service('config.factory')->getEditable('prime_nodes.settings');
-}
+
 $types = node_type_get_names();
 
 $form['prime_msg']['type'] = [
@@ -52,6 +52,8 @@ $form['prime_msg']['msg'] = [
 /* } */
 
 function prime_nodes_date_form_validate($form, &$form_state) {
+  /* echo 'made it here';exit; */
+  var_dump($for);
   /* if ($form_state['values']['date'] == 'test') { */
   /*   form_set_error('date', 'The creation day must be a prime number'); */
   /* } */
@@ -61,7 +63,7 @@ function prime_nodes_date_form_validate($form, &$form_state) {
  *
  * @param $n
  *   One number
- */
+ *
  * @return boolean
  *   The value representing whether or  not the input is a prime number.
  */
