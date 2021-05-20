@@ -53,7 +53,7 @@ $form['prime_msg']['msg'] = [
 
 function prime_nodes_date_form_validate($form, &$form_state) {
   /* echo 'made it here';exit; */
-  var_dump($for);
+  /* var_dump($form); */
   /* if ($form_state['values']['date'] == 'test') { */
   /*   form_set_error('date', 'The creation day must be a prime number'); */
   /* } */
