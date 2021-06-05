@@ -15,48 +15,42 @@ use Drupal\Core\Form\FormStateInterface;
  *
  */
 function prime_nodes_form_node_type_edit_form_alter(&$form, FormStateInterface $form_state) {
-/*$types = \Drupal::entityTypeManager()
-  ->getStorage('node_type')
-->loadMultiple();*/
-  /* $types = node_type_get_names(); */
-  /* var_dump($types); */
+  /* xdebug_break(); */
+  /* kint($form); */
+  /* $config = $config_factory->getEditable('prime_nodes.settings'); */
+  $config = \Drupal::service('config.factory')->getEditable('prime_nodes.settings');
 
-    /* $config = $config_factory->getEditable('prime_nodes.settings'); */
-    $config = \Drupal::service('config.factory')->getEditable('prime_nodes.settings');
+  $types = node_type_get_names();
 
-$types = node_type_get_names();
+  $form['prime_msg']['type'] = [
+    '#type' => 'select',
+    '#title' => t('Node Type'),
+    '#options' => $types,
+  ];
 
-$form['prime_msg']['type'] = [
-  '#type' => 'select',
-  '#title' => t('Node Type'),
-  '#options' => $types,
-];
-
-$form['prime_msg']['msg'] = [
-  '#type' => 'textfield',
-  '#title' => t('Message'),
-];
-/* $form['#validate'][] = 'prime_nodes_date_form_validate'; */
+  $form['prime_msg']['msg'] = [
+    '#type' => 'textfield',
+    '#title' => t('Message'),
+  ];
 }
 
 /**
  * Implements hook_form_alter().
  */
-/* function prime_nodes_form_alter(&$form, $form_state, $form_id) { */
-/*   if ($form_id === "node_type_edit_form") { */
-/*     /1* print_r($form_id); *1/ */
-/*   } */
-
-/*   if (true) */
-/*     $form['#validate'][] = 'prime_nodes_date_form_validate'; */
-/* } */
+function prime_nodes_form_alter(&$form, $form_state, $form_id) {
+  $types  = ['node_article_edit_form', 'node_page_edit_form'];
+  if (in_array($form_id, $types)) {
+    $form['#validate'][] = 'prime_nodes_date_form_validate';
+  }
+}
 
 function prime_nodes_date_form_validate($form, &$form_state) {
-  /* echo 'made it here';exit; */
-  /* var_dump($form); */
-  /* if ($form_state['values']['date'] == 'test') { */
-  /*   form_set_error('date', 'The creation day must be a prime number'); */
-  /* } */
+  $create_day = $form_state->getValue('created')[0]['value']->format("d");
+  $is_prime = isPrime($create_day);
+
+  if (!$is_prime) {
+    $form_state->setErrorByName('created', 'The day in created must be a prime number.');
+  }
 }
 /**
  * Determine if input number is a prime number
@@ -77,5 +71,5 @@ function isPrime($n) {
 }
 
 /* $config */
-  /*   ->set('prime_nodes_msg', []) */
-  /*   ->save(); */
+/*   ->set('prime_nodes_msg', []) */
+/*   ->save(); */
